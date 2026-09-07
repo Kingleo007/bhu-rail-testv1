@@ -22,6 +22,15 @@ class LandAssetRepository:
         self.transactions: Dict[str, TransactionRecord] = {}
         self._bootstrap_genesis_ledger()
 
+    def reset(self):
+        """Resets in-memory repository and ledger back to initial clean genesis state."""
+        self.parcels = get_initial_pilot_parcels()
+        self.transactions = {}
+        ledger.chain.clear()
+        ledger.ulpin_indexes.clear()
+        lock_manager._locks.clear()
+        self._bootstrap_genesis_ledger()
+
     def _bootstrap_genesis_ledger(self):
         """Records initial genesis blocks for pilot cadastral survey."""
         for ulpin, parcel in self.parcels.items():
