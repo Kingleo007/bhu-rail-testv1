@@ -5,7 +5,19 @@ import Link from "next/link";
 import { fetchParcels, fetchPassport, ParcelAsset, PropertyPassport } from "@/lib/api";
 import CadastralMap from "@/components/CadastralMap";
 import PropertyPassportCard from "@/components/PropertyPassportCard";
-import { ShieldCheck, Scissors, Landmark, Search, RefreshCw, AlertCircle, ArrowRight } from "lucide-react";
+import { 
+  ShieldCheck, 
+  Scissors, 
+  Landmark, 
+  Search, 
+  RefreshCw, 
+  AlertCircle, 
+  ArrowRight,
+  Database,
+  Award,
+  Layers,
+  CheckCircle2
+} from "lucide-react";
 
 export default function HomePage() {
   const [parcels, setParcels] = useState<ParcelAsset[]>([]);
@@ -23,12 +35,11 @@ export default function HomePage() {
       const data = await fetchParcels();
       setParcels(data);
       if (data.length > 0 && !selectedUlpin) {
-        // Default select first parcel
         handleSelectParcel(data[0].ulpin);
       }
     } catch (err: any) {
       console.error(err);
-      setError("Unable to connect to Bhu-Rail backend rail at http://localhost:8000. Ensure the FastAPI server is running.");
+      setError("Unable to connect to Bhu-Rail backend rail at http://localhost:8000. Ensure the backend daemon is running.");
     } finally {
       setLoading(false);
     }
@@ -59,95 +70,112 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner: DPI Rail Proposition */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700/80 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-        <div className="absolute -right-8 -bottom-8 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="relative z-10 max-w-4xl">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-800/80 text-emerald-400 text-xs font-semibold mb-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Digital Public Infrastructure (DPI) Rail</span>
+      {/* 1. Official Government Hero Banner (Singapore GovTech / DoLR Style) */}
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-6 shadow-xs relative overflow-hidden">
+        <div className="max-w-4xl space-y-3">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded bg-[#e0f2fe] border border-[#bae6fd] text-[#0369a1] text-xs font-bold uppercase tracking-wider">
+            <span>Official Government Digital Public Infrastructure</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-            Universal Land Rail for India
+
+          <h1 className="text-2xl sm:text-3xl font-serif font-black text-[#0b2545] tracking-tight">
+            National Land Digital Public Infrastructure (Land DPI)
           </h1>
-          <p className="mt-2 text-sm text-slate-300 leading-relaxed">
-            Converting fragmented land records into canonical, verifiable digital assets. Exposing standardized open APIs (<strong>"Land UPI"</strong>) for identity, spatial geometry, bundle of rights, encumbrances, and lifecycle governance.
+
+          <p className="text-sm text-[#334155] leading-relaxed max-w-3xl">
+            A parcel-centric framework converting land from fragmented departmental records into verifiable digital assets. Exposing standardized open APIs (<strong>"Land UPI"</strong>) for identity, spatial geometry, bundle of rights, encumbrances, and lifecycle governance.
           </p>
 
-          {/* 3 Quick Launch Demo Buttons */}
-          <div className="mt-5 flex flex-wrap gap-2.5">
+          {/* 3 Core Services Action Cards */}
+          <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Link
+              href="/bank-simulator?ulpin=IN-HR-GGM-KDP-0101-0000"
+              className="p-3 rounded-lg border border-[#cbd5e1] hover:border-[#0b2545] hover:shadow-xs transition-all bg-[#f8fafc] group"
+            >
+              <div className="flex items-center justify-between text-xs font-bold text-[#0b2545]">
+                <span className="flex items-center gap-1.5">
+                  <Landmark className="w-4 h-4 text-[#107c41]" />
+                  <span>Land UPI Rail</span>
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <p className="text-[11px] text-[#64748b] mt-1 leading-snug">
+                1-click sub-100ms title verification for commercial banks and lending institutions.
+              </p>
+            </Link>
+
             <Link
               href="/court-registry?ulpin=IN-HR-GGM-KDP-0104-0000"
-              className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-rose-950/70 hover:bg-rose-900 border border-rose-700/80 text-rose-200 text-xs font-semibold transition-all shadow-sm"
+              className="p-3 rounded-lg border border-[#cbd5e1] hover:border-[#0b2545] hover:shadow-xs transition-all bg-[#f8fafc] group"
             >
-              <ShieldCheck className="w-4 h-4 text-rose-400" />
-              <span>Killer Demo 1: Fraud Prevention (Court Stay)</span>
-              <ArrowRight className="w-3.5 h-3.5 text-rose-400 ml-1" />
+              <div className="flex items-center justify-between text-xs font-bold text-[#0b2545]">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#d9381e]" />
+                  <span>Judicial Injunction</span>
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <p className="text-[11px] text-[#64748b] mt-1 leading-snug">
+                Rule engine blocks transfers on court-stayed parcels in real time.
+              </p>
             </Link>
 
             <Link
               href="/surveyor-tools?ulpin=IN-HR-GGM-KDP-0108-0000"
-              className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-blue-950/70 hover:bg-blue-900 border border-blue-700/80 text-blue-200 text-xs font-semibold transition-all shadow-sm"
+              className="p-3 rounded-lg border border-[#cbd5e1] hover:border-[#0b2545] hover:shadow-xs transition-all bg-[#f8fafc] group"
             >
-              <Scissors className="w-4 h-4 text-blue-400" />
-              <span>Killer Demo 2: Spatial Subdivision (10,000 m²)</span>
-              <ArrowRight className="w-3.5 h-3.5 text-blue-400 ml-1" />
-            </Link>
-
-            <Link
-              href="/bank-simulator?ulpin=IN-HR-GGM-KDP-0101-0000"
-              className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-lg bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-700/80 text-emerald-200 text-xs font-semibold transition-all shadow-sm"
-            >
-              <Landmark className="w-4 h-4 text-emerald-400" />
-              <span>Killer Demo 3: "Land UPI" Title Check (80ms)</span>
-              <ArrowRight className="w-3.5 h-3.5 text-emerald-400 ml-1" />
+              <div className="flex items-center justify-between text-xs font-bold text-[#0b2545]">
+                <span className="flex items-center gap-1.5">
+                  <Scissors className="w-4 h-4 text-[#0284c7]" />
+                  <span>Cadastral Subdivision</span>
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+              <p className="text-[11px] text-[#64748b] mt-1 leading-snug">
+                Spatial polygon partitioning with mathematical area conservation.
+              </p>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Backend connection warning if offline */}
+      {/* Backend Alert if Offline */}
       {error && (
-        <div className="bg-amber-950/60 border border-amber-800/80 rounded-xl p-4 text-amber-200 text-xs flex items-start space-x-3">
-          <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <strong className="font-semibold block">Backend Rail Offline or Unreachable</strong>
+        <div className="bg-[#fef2f2] border border-[#fca5a5] rounded-lg p-3.5 text-[#991b1b] text-xs flex items-start space-x-3">
+          <AlertCircle className="w-5 h-5 text-[#d9381e] flex-shrink-0 mt-0.5" />
+          <div>
+            <strong className="font-bold block">Backend Rail Service Disconnected</strong>
             <span>{error}</span>
-            <div className="pt-1">
-              Start the backend via <code className="bg-amber-900/60 px-2 py-0.5 rounded font-mono text-[11px]">uvicorn app.main:app --reload --port 8000</code> in the <code className="font-mono text-[11px]">backend/</code> folder.
-            </div>
           </div>
         </div>
       )}
 
-      {/* Search & Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-3 rounded-xl">
+      {/* 2. Official Cadastral Search & Registry Filter */}
+      <div className="bg-white border border-[#cbd5e1] p-3 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
         <div className="relative w-full sm:w-96">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
           <input
             type="text"
-            placeholder="Search by ULPIN, Survey/Khasra No, or Owner Name..."
+            placeholder="Search by ULPIN, Khasra Number, or Landowner Name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 font-mono"
+            className="w-full pl-9 pr-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded text-xs text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-[#0b2545] font-mono"
           />
         </div>
 
         <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
           <button
             onClick={loadData}
-            className="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition-colors"
+            className="flex items-center space-x-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-[#0b2545] border border-[#cbd5e1] rounded text-xs font-semibold transition-colors shadow-xs"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Sync DPI Rail</span>
+            <RefreshCw className="w-3 h-3 text-[#0b2545]" />
+            <span>Synchronize Rail</span>
           </button>
         </div>
       </div>
 
-      {/* Main Grid: Left = Cadastral Map, Right = Property Passport */}
+      {/* 3. Main Split View (GIS Map on Left, Certificate on Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Cadastral GIS Vector Map */}
-        <div className="lg:col-span-7 space-y-3">
+        <div className="lg:col-span-7">
           <CadastralMap
             parcels={filteredParcels}
             selectedUlpin={selectedUlpin}
@@ -155,7 +183,6 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Canonical Property Passport */}
         <div className="lg:col-span-5">
           <PropertyPassportCard
             passport={passport}

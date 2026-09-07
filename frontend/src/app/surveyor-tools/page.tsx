@@ -40,76 +40,85 @@ function SurveyorToolsContent() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-slate-900 border border-blue-800/60 rounded-2xl p-6 shadow-xl">
-        <div className="flex items-center space-x-2 text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">
-          <Scissors className="w-4 h-4" />
-          <span>Killer Demo #2 • Spatial Subdivision & Parcel Lineage</span>
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Header Banner - Singapore GovTech Style */}
+      <div className="bg-white border border-slate-300 rounded-sm p-6 shadow-sm border-l-4 border-l-[#00264d]">
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-200">
+          <div className="flex items-center space-x-2">
+            <span className="px-2 py-0.5 bg-[#00264d] text-white text-[10px] font-bold uppercase tracking-wider rounded-xs">
+              Directorate of Survey & Cadastral Mapping
+            </span>
+            <span className="text-xs text-slate-500 font-serif italic">
+              Standard Operating Procedure #CAD-SUB-2026
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-200">
+            DPI Rail: Live Geodesic Engine
+          </span>
         </div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">
-          OGC Spatial Engine: Cadastral Partitioning & Genealogy
+        <h1 className="text-2xl font-serif font-bold text-[#00264d] tracking-tight">
+          Statutory Cadastral Partitioning & Parcel Lineage Engine
         </h1>
-        <p className="mt-1 text-sm text-slate-300 max-w-3xl">
-          Never overwrite history. When a parcel is split, the parent geometry is retired to <code className="bg-slate-800 text-blue-400 px-2 py-0.5 rounded font-mono text-xs">SUBDIVIDED</code>, new child ULPINs are generated, area conservation is mathematically verified, and the full genealogy tree is committed to the ledger.
+        <p className="mt-2 text-xs text-slate-700 leading-relaxed max-w-4xl">
+          Complies with National Land Digitisation Mandate (DILRMP). Historical records are never overwritten. When a parcel is partitioned, the parent geometry is retired to <code className="bg-slate-100 text-slate-900 border border-slate-300 px-1.5 py-0.5 rounded font-mono text-[11px] font-bold">SUBDIVIDED</code>, child ULPINs are generated with strict mathematical area conservation (geodesic polygon bisect), and lineage trees are anchored to the national ledger.
         </p>
       </div>
 
       {/* Subdivision Action Form */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
-        <div className="flex items-center space-x-2 pb-2 border-b border-slate-800">
-          <GitFork className="w-5 h-5 text-blue-400" />
-          <h2 className="text-base font-bold text-white">
-            Configure Cadastral Parcel Partition
+      <div className="bg-white border border-slate-300 rounded-sm p-6 shadow-sm space-y-5">
+        <div className="flex items-center space-x-2 pb-3 border-b border-slate-200">
+          <GitFork className="w-4 h-4 text-[#00264d]" />
+          <h2 className="text-sm font-bold text-[#00264d] uppercase tracking-wide">
+            Statutory Cadastral Partition Configuration
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Parent Parcel ULPIN
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+              Parent Parcel ULPIN (Target of Partition)
             </label>
             <input
               type="text"
               value={parentUlpin}
               onChange={(e) => setParentUlpin(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xs text-xs font-mono text-slate-900 focus:outline-none focus:border-[#00264d] focus:bg-white transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Surveyor License Credential
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+              Surveyor License Credential ID
             </label>
             <input
               type="text"
               value={surveyorLic}
               onChange={(e) => setSurveyorLic(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xs text-xs font-mono text-slate-900 focus:outline-none focus:border-[#00264d] focus:bg-white transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Child Parcel 1 Assignee (West Parcel)
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+              Child Parcel 1 Assignee (West Geodesic Partition)
             </label>
             <input
               type="text"
               value={heir1}
               onChange={(e) => setHeir1(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xs text-xs text-slate-900 focus:outline-none focus:border-[#00264d] focus:bg-white transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Child Parcel 2 Assignee (East Parcel)
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
+              Child Parcel 2 Assignee (East Geodesic Partition)
             </label>
             <input
               type="text"
               value={heir2}
               onChange={(e) => setHeir2(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xs text-xs text-slate-900 focus:outline-none focus:border-[#00264d] focus:bg-white transition-colors"
             />
           </div>
         </div>
@@ -117,67 +126,71 @@ function SurveyorToolsContent() {
         <button
           onClick={handleSubdivide}
           disabled={loading}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-blue-900/40"
+          className="w-full py-3 bg-[#00264d] hover:bg-[#001a33] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-xs transition-all flex items-center justify-center space-x-2 shadow-sm"
         >
           {loading ? (
             <span>Computing Geodesic Polygon Cut & Verifying Area Conservation...</span>
           ) : (
             <>
               <Scissors className="w-4 h-4" />
-              <span>Execute Spatial Subdivision on DPI Rail</span>
+              <span>Execute Statutory Partition on DPI Rail</span>
             </>
           )}
         </button>
 
         {/* Subdivision Results */}
         {result && (
-          <div className="bg-slate-950 border border-blue-600/80 rounded-xl p-6 space-y-5 animate-fadeIn">
-            <div className="flex items-center space-x-3 text-emerald-400">
-              <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
-              <div className="font-bold text-base text-white">
+          <div className="bg-slate-50 border border-emerald-600 rounded-sm p-6 space-y-5 animate-fadeIn">
+            <div className="flex items-center space-x-3 text-emerald-800">
+              <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-emerald-600" />
+              <div className="font-bold text-sm text-emerald-950 font-serif">
                 {result.message}
               </div>
             </div>
 
             {/* Lineage Breakdown */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-              <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-2">
-                <div className="text-slate-400 uppercase font-sans font-semibold text-[10px]">
+              <div className="bg-white p-4 rounded-xs border border-slate-300 space-y-2">
+                <div className="text-slate-500 uppercase font-sans font-bold text-[10px] tracking-wide">
                   Parent Asset (Retired)
                 </div>
-                <div className="text-white font-bold">{parentUlpin}</div>
-                <div className="text-amber-400">Status: SUBDIVIDED</div>
-                <div className="text-slate-400 text-[11px]">
-                  Parent record preserved immutably in ledger for historical genealogy.
+                <div className="text-[#00264d] font-bold">{parentUlpin}</div>
+                <div className="text-amber-700 font-bold text-[11px] bg-amber-50 px-2 py-0.5 rounded-xs border border-amber-200 inline-block">
+                  Status: SUBDIVIDED (Immutable)
+                </div>
+                <div className="text-slate-600 font-sans text-[11px]">
+                  Parent record preserved in state archive for root-of-title genealogy.
                 </div>
               </div>
 
-              <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-2">
-                <div className="text-slate-400 uppercase font-sans font-semibold text-[10px]">
-                  Generated Child ULPINs (Active)
+              <div className="bg-white p-4 rounded-xs border border-slate-300 space-y-2">
+                <div className="text-slate-500 uppercase font-sans font-bold text-[10px] tracking-wide">
+                  Issued Child ULPINs (Active)
                 </div>
                 {result.transaction_record?.resulting_ulpins?.map((child: string, i: number) => (
-                  <div key={child} className="text-emerald-400 font-bold flex items-center space-x-2">
-                    <span className="text-slate-500">Child {i + 1}:</span>
-                    <span>{child}</span>
+                  <div key={child} className="text-[#00264d] font-bold flex items-center space-x-2">
+                    <span className="text-slate-500 font-sans text-[11px]">Child {i + 1}:</span>
+                    <span className="bg-emerald-50 text-emerald-900 border border-emerald-200 px-2 py-0.5 rounded-xs">
+                      {child}
+                    </span>
                   </div>
                 ))}
-                <div className="text-slate-400 text-[11px]">
-                  Area conservation verified: Sum(Child Areas) = Parent Area.
+                <div className="text-emerald-700 font-sans text-[11px] font-semibold">
+                  ✓ Geodesic Area Conservation Verified: Sum(Child Areas) = Parent Area (Tolerance &lt; 0.01%).
                 </div>
               </div>
             </div>
 
             {/* Transaction Steps Record */}
-            <div className="border-t border-slate-800 pt-3">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold mb-2">
-                Workflow Audit Execution Steps:
+            <div className="border-t border-slate-200 pt-3">
+              <div className="text-[10px] text-slate-600 uppercase font-bold tracking-wide mb-2">
+                Statutory Workflow Execution Record:
               </div>
               <div className="flex flex-wrap gap-2">
                 {result.transaction_record?.completed_steps?.map((step: string) => (
                   <span
                     key={step}
-                    className="px-2 py-1 rounded bg-slate-900 border border-slate-700 text-[10px] text-emerald-400 font-mono"
+                    className="px-2 py-1 rounded-xs bg-white border border-slate-300 text-[11px] text-[#00264d] font-mono font-medium shadow-xs"
                   >
                     ✓ {step}
                   </span>

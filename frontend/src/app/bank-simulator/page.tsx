@@ -3,7 +3,19 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { verifyTitleStatus, TitleVerificationResponse } from "@/lib/api";
-import { Landmark, CheckCircle2, XCircle, Clock, Zap, ArrowRight, ShieldCheck, AlertTriangle } from "lucide-react";
+import { 
+  Landmark, 
+  CheckCircle2, 
+  XCircle, 
+  Clock, 
+  Zap, 
+  ArrowRight, 
+  ShieldCheck, 
+  AlertTriangle,
+  Building,
+  FileCheck,
+  Award
+} from "lucide-react";
 
 function BankSimulatorContent() {
   const searchParams = useSearchParams();
@@ -32,196 +44,171 @@ function BankSimulatorContent() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      {/* Header & DPI Context */}
-      <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 border border-emerald-800/60 rounded-2xl p-6 shadow-xl">
-        <div className="flex items-center space-x-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
-          <Zap className="w-4 h-4" />
-          <span>Killer Demo #3 • Land UPI in Action</span>
+      {/* Official Institutional Banner */}
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-6 shadow-xs">
+        <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-wider text-[#0b2545] mb-2">
+          <Landmark className="w-4 h-4 text-[#107c41]" />
+          <span>Institutional Banking Rail • Section 58 Transfer of Property Act</span>
         </div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">
-          Third-Party Banking Rail: Instant Collateral Appraisal
+        <h1 className="text-2xl font-serif font-bold text-[#0b2545] tracking-tight">
+          Land UPI: Real-Time Title & Collateral Appraisal
         </h1>
-        <p className="mt-1 text-sm text-slate-300 max-w-3xl">
-          Demonstrating that Bhu-Rail is not an internal government app, but an open Digital Public Infrastructure (DPI). A commercial bank app calls <code className="bg-slate-800 text-emerald-400 px-2 py-0.5 rounded font-mono text-xs">GET /v1/verification/title-status</code> and receives clean, instantaneous boolean verification flags in sub-100ms.
+        <p className="mt-1 text-xs text-slate-600 max-w-3xl leading-relaxed">
+          Demonstrating open Digital Public Infrastructure (DPI) in action. Instead of ordering 4-week physical Title Search Reports (TSR) across departmental offices, a lending institution's core banking system calls <code className="bg-slate-100 text-[#0b2545] px-1.5 py-0.5 rounded font-mono text-[11px]">GET /v1/verification/title-status</code> for instant machine-readable clearance.
         </p>
       </div>
 
-      {/* Input Console */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
-        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
-          Target Parcel ULPIN for Collateral Verification
+      {/* Query Console */}
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-5 shadow-xs space-y-4">
+        <label className="block text-xs font-bold text-[#0b2545] uppercase tracking-wider">
+          Target Parcel ULPIN (Bhu-Aadhaar)
         </label>
         <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             value={ulpin}
             onChange={(e) => setUlpin(e.target.value)}
-            className="flex-1 px-4 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white font-mono focus:outline-none focus:border-emerald-500"
-            placeholder="Enter ULPIN..."
+            className="flex-1 px-3.5 py-2 bg-[#f8fafc] border border-[#cbd5e1] rounded text-xs font-mono text-[#0f172a] focus:outline-none focus:border-[#0b2545]"
+            placeholder="Enter 14 or 26-digit ULPIN..."
           />
           <button
             onClick={handleVerify}
             disabled={loading}
-            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-emerald-900/30"
+            className="px-6 py-2 bg-[#0b2545] hover:bg-[#134074] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded transition-all flex items-center justify-center space-x-2 shadow-xs"
           >
             {loading ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Querying DPI Rail...</span>
-              </>
+              <span>Evaluating Land Rail...</span>
             ) : (
               <>
-                <Zap className="w-4 h-4" />
-                <span>Verify via Land UPI</span>
+                <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Execute Land UPI Check</span>
               </>
             )}
           </button>
         </div>
 
-        {/* Quick select presets */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
-          <span>Test Preset Scenarios:</span>
+        {/* Quick Test Presets */}
+        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-500">
+          <span className="font-semibold text-slate-600">Sample Test Parcels:</span>
           <button
             onClick={() => setUlpin("IN-HR-GGM-KDP-0101-0000")}
-            className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 font-mono text-[11px]"
+            className="px-2.5 py-1 rounded bg-[#f8fafc] hover:bg-slate-100 text-[#107c41] border border-[#cbd5e1] font-mono text-[11px] font-bold"
           >
             Plot 101 (Clean Freehold)
           </button>
           <button
             onClick={() => setUlpin("IN-HR-GGM-KDP-0102-0000")}
-            className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-mono text-[11px]"
+            className="px-2.5 py-1 rounded bg-[#f8fafc] hover:bg-slate-100 text-[#d97706] border border-[#cbd5e1] font-mono text-[11px] font-bold"
           >
             Plot 102 (Active SBI Mortgage)
           </button>
           <button
             onClick={() => setUlpin("IN-HR-GGM-KDP-0104-0000")}
-            className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-rose-400 border border-slate-700 font-mono text-[11px]"
+            className="px-2.5 py-1 rounded bg-[#f8fafc] hover:bg-slate-100 text-[#d9381e] border border-[#cbd5e1] font-mono text-[11px] font-bold"
           >
-            Plot 104 (Court Stay Freezed)
+            Plot 104 (Court Injunction Stay)
           </button>
         </div>
       </div>
 
       {/* Verification Result Output */}
       {result && (
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl animate-fadeIn">
-          {/* Top API Telemetry Header */}
-          <div className="bg-slate-950 px-6 py-3 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+        <div className="bg-white border border-[#cbd5e1] rounded-lg overflow-hidden shadow-xs">
+          {/* Header Telemetry */}
+          <div className="bg-[#f8fafc] px-6 py-2.5 border-b border-[#cbd5e1] flex items-center justify-between text-xs text-slate-600">
             <div className="flex items-center space-x-3">
-              <span className="font-mono text-emerald-400 font-bold">API 200 OK</span>
+              <span className="font-mono text-[#107c41] font-bold">STATUS 200 OK</span>
               <span>•</span>
-              <span className="flex items-center space-x-1 text-slate-300">
-                <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Latency: <strong className="text-white font-mono">{latencyMs} ms</strong></span>
+              <span className="flex items-center space-x-1 text-slate-700">
+                <Clock className="w-3.5 h-3.5 text-[#0b2545]" />
+                <span>Response Time: <strong className="text-[#0b2545] font-mono">{latencyMs} ms</strong></span>
               </span>
             </div>
-            <div className="font-mono text-[11px] text-slate-400">
-              Audit Status: <strong className="text-emerald-400">{result.ledger_audit_status}</strong>
+            <div className="font-mono text-[11px]">
+              Provenance: <strong className="text-[#107c41]">{result.ledger_audit_status}</strong>
             </div>
           </div>
 
           <div className="p-6 space-y-6">
-            {/* Big Status Banner */}
+            {/* Status Banner */}
             <div
-              className={`p-5 rounded-xl border flex items-start space-x-4 ${
+              className={`p-4 rounded border flex items-start space-x-3.5 ${
                 result.transferrable
-                  ? "bg-emerald-950/40 border-emerald-800/80 text-emerald-200"
-                  : "bg-rose-950/40 border-rose-800/80 text-rose-200"
+                  ? "bg-[#f0fdf4] border-[#86efac] text-[#14532d]"
+                  : "bg-[#fef2f2] border-[#fca5a5] text-[#7f1d1d]"
               }`}
             >
               {result.transferrable ? (
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-6 h-6 text-[#107c41] flex-shrink-0 mt-0.5" />
               ) : (
-                <XCircle className="w-8 h-8 text-rose-400 flex-shrink-0 mt-0.5" />
+                <XCircle className="w-6 h-6 text-[#d9381e] flex-shrink-0 mt-0.5" />
               )}
               <div>
-                <h3 className="text-lg font-bold">
+                <h3 className="text-sm font-bold">
                   {result.transferrable
-                    ? "✓ Collateral Appraisal Approved (Clear Marketable Title)"
-                    : "✗ Collateral Blocked by Land DPI Rule Engine"}
+                    ? "Statutory Clearance: Clear Marketable Title Approved"
+                    : "Statutory Disqualification: Mortgage Collateral Blocked by Rule Engine"}
                 </h3>
-                <p className="text-xs mt-1 text-slate-300">
+                <p className="text-xs mt-0.5 text-slate-600">
                   {result.transferrable
-                    ? "No active court stays, no conflicting financial encumbrances, and verified registered freehold title."
-                    : `Active restrictions detected: ${result.active_locks.join(", ") || "Transfer freeze in place."}`}
+                    ? "Verified zero prior hypothecations, no judicial injunctions, and registered freehold Patta holder."
+                    : `Active statutory restrictions: ${result.active_locks.join(", ") || "Transfer freeze active."}`}
                 </p>
               </div>
             </div>
 
-            {/* Boolean Decision Flags Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Flag 1 */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-semibold block uppercase">Owner Verified</span>
-                <div className="flex items-center space-x-2 mt-2">
-                  {result.owner_verified ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                  ) : (
-                    <XCircle className="w-5 h-5 text-rose-400" />
-                  )}
-                  <span className="text-sm font-bold text-white font-mono">
-                    {result.owner_verified ? "TRUE" : "FALSE"}
-                  </span>
+            {/* 4 Boolean Flags Table */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="bg-[#f8fafc] p-3.5 rounded border border-[#cbd5e1]">
+                <span className="text-[10.5px] font-bold text-slate-500 uppercase block">Registered Ownership</span>
+                <div className="flex items-center space-x-1.5 mt-1.5 font-bold">
+                  {result.owner_verified ? <CheckCircle2 className="w-4 h-4 text-[#107c41]" /> : <XCircle className="w-4 h-4 text-[#d9381e]" />}
+                  <span className="text-slate-900 font-mono">{result.owner_verified ? "VERIFIED" : "UNVERIFIED"}</span>
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1 truncate">
+                <div className="text-[10.5px] text-slate-500 mt-1 truncate">
                   {result.current_owners.join(", ") || "None"}
                 </div>
               </div>
 
-              {/* Flag 2 */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-semibold block uppercase">Active Mortgage</span>
-                <div className="flex items-center space-x-2 mt-2">
-                  {!result.active_mortgage ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                  ) : (
-                    <AlertTriangle className="w-5 h-5 text-amber-400" />
-                  )}
-                  <span className="text-sm font-bold text-white font-mono">
-                    {result.active_mortgage ? "TRUE (LIEN)" : "FALSE (CLEAR)"}
-                  </span>
+              <div className="bg-[#f8fafc] p-3.5 rounded border border-[#cbd5e1]">
+                <span className="text-[10.5px] font-bold text-slate-500 uppercase block">Prior Mortgage Lien</span>
+                <div className="flex items-center space-x-1.5 mt-1.5 font-bold">
+                  {!result.active_mortgage ? <CheckCircle2 className="w-4 h-4 text-[#107c41]" /> : <AlertTriangle className="w-4 h-4 text-[#d97706]" />}
+                  <span className="text-slate-900 font-mono">{result.active_mortgage ? "ACTIVE LIEN" : "CLEAR"}</span>
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">
-                  {result.active_mortgage ? "Prior bank mortgage exists" : "Zero financial burdens"}
+                <div className="text-[10.5px] text-slate-500 mt-1">
+                  {result.active_mortgage ? "Prior bank mortgage exists" : "Zero financial encumbrances"}
                 </div>
               </div>
 
-              {/* Flag 3 */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-semibold block uppercase">Court Injunction</span>
-                <div className="flex items-center space-x-2 mt-2">
-                  {!result.active_court_restriction ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                  ) : (
-                    <XCircle className="w-5 h-5 text-rose-400" />
-                  )}
-                  <span className="text-sm font-bold text-white font-mono">
-                    {result.active_court_restriction ? "ACTIVE STAY" : "CLEAR"}
-                  </span>
+              <div className="bg-[#f8fafc] p-3.5 rounded border border-[#cbd5e1]">
+                <span className="text-[10.5px] font-bold text-slate-500 uppercase block">Judicial Injunction</span>
+                <div className="flex items-center space-x-1.5 mt-1.5 font-bold">
+                  {!result.active_court_restriction ? <CheckCircle2 className="w-4 h-4 text-[#107c41]" /> : <XCircle className="w-4 h-4 text-[#d9381e]" />}
+                  <span className="text-slate-900 font-mono">{result.active_court_restriction ? "ACTIVE STAY" : "CLEAR"}</span>
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">
-                  {result.active_court_restriction ? "Judicial freeze active" : "No pending litigation"}
+                <div className="text-[10.5px] text-slate-500 mt-1">
+                  {result.active_court_restriction ? "Judicial status quo in place" : "No pending litigation"}
                 </div>
               </div>
 
-              {/* Flag 4 */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                <span className="text-[11px] text-slate-400 font-semibold block uppercase">Zoning Classification</span>
-                <div className="text-sm font-bold text-emerald-400 mt-2 font-mono">
+              <div className="bg-[#f8fafc] p-3.5 rounded border border-[#cbd5e1]">
+                <span className="text-[10.5px] font-bold text-slate-500 uppercase block">Zoning Use</span>
+                <div className="text-slate-900 font-mono font-bold mt-1.5">
                   {result.land_use_category}
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">
+                <div className="text-[10.5px] text-slate-500 mt-1">
                   Permissible Development
                 </div>
               </div>
             </div>
 
-            {/* Raw JSON Response from DPI Rail */}
-            <div className="space-y-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
-                Standardized Land UPI Response Payload (JSON)
+            {/* Standard Machine-Readable Payload */}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">
+                Standardized Land UPI Machine-Readable Payload (JSON)
               </span>
-              <pre className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 overflow-x-auto">
+              <pre className="bg-[#0b2545] p-3.5 rounded text-[11px] font-mono text-emerald-300 overflow-x-auto">
                 {JSON.stringify(result, null, 2)}
               </pre>
             </div>
@@ -234,7 +221,7 @@ function BankSimulatorContent() {
 
 export default function BankSimulatorPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-slate-400 text-xs">Loading Land UPI Bank Console...</div>}>
+    <Suspense fallback={<div className="p-8 text-center text-slate-500 text-xs">Loading Land UPI Banking Rail...</div>}>
       <BankSimulatorContent />
     </Suspense>
   );

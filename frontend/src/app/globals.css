@@ -3,38 +3,54 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --gov-navy: #0b2545;
+  --gov-blue: #134074;
+  --gov-accent-blue: #0070e0;
+  --gov-red: #d9381e;
+  --gov-green: #107c41;
+  --gov-light-bg: #f8fafc;
+  --gov-card-border: #e2e8f0;
+  --gov-text-dark: #0f172a;
+  --gov-text-muted: #475569;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
+  color: var(--gov-text-dark);
   background: #f1f5f9;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Pulse badge animation */
-@keyframes softPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
+/* Singapore GovTech Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: #0b2545;
+  letter-spacing: -0.015em;
+  font-weight: 700;
 }
 
-.animate-soft-pulse {
-  animation: softPulse 2.5s infinite ease-in-out;
+/* Official Government Stamp / Watermark */
+.gov-seal-watermark {
+  position: relative;
+}
+.gov-seal-watermark::after {
+  content: "OFFICIAL RECORD";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: rgba(15, 23, 42, 0.035);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.25em;
+  z-index: 0;
+}
+
+/* Print Cleanliness */
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }

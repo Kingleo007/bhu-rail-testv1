@@ -3,7 +3,17 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { executeTransfer, fileDispute } from "@/lib/api";
-import { ShieldAlert, Scale, AlertOctagon, CheckCircle2, ArrowRight, Lock, FileText } from "lucide-react";
+import { 
+  ShieldAlert, 
+  Scale, 
+  AlertOctagon, 
+  CheckCircle2, 
+  ArrowRight, 
+  Lock, 
+  FileText,
+  Gavel,
+  AlertTriangle
+} from "lucide-react";
 
 function CourtRegistryContent() {
   const searchParams = useSearchParams();
@@ -70,64 +80,64 @@ function CourtRegistryContent() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-rose-950 via-slate-900 to-slate-900 border border-rose-800/60 rounded-2xl p-6 shadow-xl">
-        <div className="flex items-center space-x-2 text-rose-400 text-xs font-bold uppercase tracking-wider mb-2">
-          <ShieldAlert className="w-4 h-4" />
-          <span>Killer Demo #1 • Fraud Prevention & Judicial Injunction</span>
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* Official Judicial Header Banner */}
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-6 shadow-xs">
+        <div className="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-wider text-[#0b2545] mb-2">
+          <Gavel className="w-4 h-4 text-[#d9381e]" />
+          <span>e-Courts Enforcement Rail • Section 52 Transfer of Property Act (Lis Pendens)</span>
         </div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">
-          Cryptographic Fraud Interception via Rule Engine
+        <h1 className="text-2xl font-serif font-bold text-[#0b2545] tracking-tight">
+          Judicial Injunction Enforcement & Fraud Interception
         </h1>
-        <p className="mt-1 text-sm text-slate-300 max-w-3xl">
-          In legacy systems, sellers frequently sell land under court stay by exploiting paper silos. Under Bhu-Rail DPI, when a court issues an injunction, it is committed to the Land Asset Core. Any subsequent transfer or mortgage request is <strong>instantly blocked and rejected</strong> with the judicial citation.
+        <p className="mt-1 text-xs text-slate-600 max-w-3xl leading-relaxed">
+          Demonstrating automated fraud interception. When a Revenue Court or Civil Tribunal issues an injunction, Bhu-Rail registers the stay directly on the parcel asset. Subsequent transfer requests are <strong>blocked at the API rail</strong>, citing the court order in milliseconds.
         </p>
       </div>
 
-      {/* Part A: Attempt Fraudulent Transfer on Court-Stayed Parcel */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
-        <div className="flex items-center space-x-2 pb-2 border-b border-slate-800">
-          <Lock className="w-5 h-5 text-rose-400" />
-          <h2 className="text-base font-bold text-white">
-            Scenario A: Attempt Transfer on Court-Stayed Plot (e.g. Plot 104)
+      {/* Part A: Attempt Transfer on Court-Stayed Plot */}
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-6 shadow-xs space-y-4">
+        <div className="flex items-center space-x-2 pb-2 border-b border-slate-200">
+          <Lock className="w-4 h-4 text-[#d9381e]" />
+          <h2 className="text-sm font-bold text-[#0b2545] uppercase tracking-wider">
+            Test Case A: Attempt Transfer on Court-Stayed Parcel (e.g. Khasra 104)
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">
               Target Parcel ULPIN
             </label>
             <input
               type="text"
               value={targetUlpin}
               onChange={(e) => setTargetUlpin(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded font-mono text-slate-900 focus:outline-none focus:border-[#0b2545]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Intended Buyer
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">
+              Purchaser Legal Name
             </label>
             <input
               type="text"
               value={buyerName}
               onChange={(e) => setBuyerName(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded text-slate-900 focus:outline-none focus:border-[#0b2545]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">
               Sale Consideration (INR)
             </label>
             <input
               type="text"
               value={consideration}
               onChange={(e) => setConsideration(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded font-mono text-slate-900 focus:outline-none focus:border-[#0b2545]"
             />
           </div>
         </div>
@@ -135,14 +145,14 @@ function CourtRegistryContent() {
         <button
           onClick={handleAttemptTransfer}
           disabled={transferLoading}
-          className="w-full py-3 bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-rose-900/40"
+          className="w-full py-2.5 bg-[#d9381e] hover:bg-[#b91c1c] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded transition-all flex items-center justify-center space-x-2 shadow-xs"
         >
           {transferLoading ? (
             <span>Evaluating Transaction against DPI Rule Engine...</span>
           ) : (
             <>
               <AlertOctagon className="w-4 h-4" />
-              <span>Submit Transfer to Sub-Registrar Rail</span>
+              <span>Submit Transfer Deed to Sub-Registrar Rail</span>
             </>
           )}
         </button>
@@ -150,42 +160,36 @@ function CourtRegistryContent() {
         {/* Transfer Result Banner */}
         {transferStatus && (
           <div
-            className={`p-5 rounded-xl border animate-fadeIn ${
+            className={`p-4 rounded border ${
               transferStatus.status === "REJECTED"
-                ? "bg-rose-950/60 border-rose-600 text-rose-100"
-                : "bg-emerald-950/60 border-emerald-600 text-emerald-100"
+                ? "bg-[#fef2f2] border-[#fca5a5] text-[#991b1b]"
+                : "bg-[#f0fdf4] border-[#86efac] text-[#166534]"
             }`}
           >
-            <div className="flex items-start space-x-4">
+            <div className="flex items-start space-x-3.5">
               {transferStatus.status === "REJECTED" ? (
-                <div className="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center flex-shrink-0">
-                  <ShieldAlert className="w-6 h-6 text-white" />
-                </div>
+                <ShieldAlert className="w-6 h-6 text-[#d9381e] flex-shrink-0 mt-0.5" />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0">
-                  <CheckCircle2 className="w-6 h-6 text-white" />
-                </div>
+                <CheckCircle2 className="w-6 h-6 text-[#107c41] flex-shrink-0 mt-0.5" />
               )}
 
-              <div className="space-y-2 flex-1">
+              <div className="space-y-1.5 flex-1 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black tracking-widest uppercase bg-black/40 px-2 py-0.5 rounded">
-                    {transferStatus.status === "REJECTED" ? "TRANSACTION BLOCKED" : "TRANSACTION COMMITTED"}
+                  <span className="font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-black/10">
+                    {transferStatus.status === "REJECTED" ? "TRANSACTION BLOCKED BY RULE ENGINE" : "COMMITTED TO LEDGER"}
                   </span>
-                  <span className="font-mono text-xs opacity-75">
+                  <span className="font-mono text-[11px] text-slate-500">
                     Tx ID: {transferStatus.transaction_record?.transaction_id}
                   </span>
                 </div>
 
-                <div className="text-base font-extrabold leading-snug">
+                <div className="text-sm font-bold text-slate-900">
                   {transferStatus.message}
                 </div>
 
                 {transferStatus.transaction_record?.rule_violations && (
-                  <div className="bg-black/30 p-3 rounded-lg text-xs space-y-1 font-mono text-rose-300">
-                    <div className="text-[10px] text-rose-400 font-sans uppercase font-bold tracking-wider">
-                      Rule Engine Interception Details:
-                    </div>
+                  <div className="bg-white p-2.5 rounded border border-red-200 text-slate-800 text-[11px] font-mono space-y-1">
+                    <strong className="text-[#d9381e] block">Rule Engine Interception Details:</strong>
                     {transferStatus.transaction_record.rule_violations.map((v: string, i: number) => (
                       <div key={i}>{v}</div>
                     ))}
@@ -198,64 +202,56 @@ function CourtRegistryContent() {
       </div>
 
       {/* Part B: Inject Court Stay on any parcel */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
-        <div className="flex items-center space-x-2 pb-2 border-b border-slate-800">
-          <Scale className="w-5 h-5 text-amber-400" />
-          <h2 className="text-base font-bold text-white">
-            Scenario B: Judicial Console — Issue Interim Injunction on Any Parcel
+      <div className="bg-white border border-[#cbd5e1] rounded-lg p-6 shadow-xs space-y-4">
+        <div className="flex items-center space-x-2 pb-2 border-b border-slate-200">
+          <Scale className="w-4 h-4 text-[#0b2545]" />
+          <h2 className="text-sm font-bold text-[#0b2545] uppercase tracking-wider">
+            Test Case B: Judicial Console — Issue Interim Injunction on Any Parcel
           </h2>
         </div>
 
-        <p className="text-xs text-slate-400">
-          Simulate a Revenue Court or District Magistrate issuing a stay order on a clean plot (e.g. Plot 101). Once submitted, test transferring Plot 101 to verify it becomes immediately frozen.
+        <p className="text-xs text-slate-600">
+          Simulate a Revenue Court or Civil Judge issuing a stay order on a clean plot (e.g. Khasra 101). Once submitted, attempt to transfer Khasra 101 to verify it becomes immediately locked.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Target ULPIN
-            </label>
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">Target ULPIN</label>
             <input
               type="text"
               value={dispUlpin}
               onChange={(e) => setDispUlpin(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded font-mono text-slate-900"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Court Case Number
-            </label>
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">Court Case Number</label>
             <input
               type="text"
               value={caseNo}
               onChange={(e) => setCaseNo(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded font-mono text-slate-900"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Adjudicating Authority
-            </label>
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">Adjudicating Authority</label>
             <input
               type="text"
               value={authority}
               onChange={(e) => setAuthority(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded text-slate-900"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Petitioner Name
-            </label>
+            <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">Petitioner Name</label>
             <input
               type="text"
               value={petitioner}
               onChange={(e) => setPetitioner(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-amber-500"
+              className="w-full px-3 py-1.5 bg-[#f8fafc] border border-[#cbd5e1] rounded text-slate-900"
             />
           </div>
         </div>
@@ -263,22 +259,22 @@ function CourtRegistryContent() {
         <button
           onClick={handleInjectInjunction}
           disabled={disputeLoading}
-          className="w-full py-3 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-amber-900/40"
+          className="w-full py-2.5 bg-[#0b2545] hover:bg-[#134074] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded transition-all flex items-center justify-center space-x-2 shadow-xs"
         >
           {disputeLoading ? (
             <span>Signing Judicial Stay Order to Ledger...</span>
           ) : (
             <>
               <Scale className="w-4 h-4" />
-              <span>Commit Injunction Order to Land DPI Ledger</span>
+              <span>Record Injunction Order in Land DPI Core</span>
             </>
           )}
         </button>
 
         {disputeSuccessMsg && (
-          <div className="bg-amber-950/60 border border-amber-600 rounded-xl p-4 text-amber-200 text-xs flex items-center space-x-3">
-            <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0" />
-            <div className="font-semibold">{disputeSuccessMsg}</div>
+          <div className="bg-[#f0fdf4] border border-[#86efac] rounded p-3 text-[#14532d] text-xs flex items-center space-x-2.5">
+            <CheckCircle2 className="w-4 h-4 text-[#107c41] flex-shrink-0" />
+            <div className="font-bold">{disputeSuccessMsg}</div>
           </div>
         )}
       </div>
@@ -288,7 +284,7 @@ function CourtRegistryContent() {
 
 export default function CourtRegistryPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-slate-400 text-xs">Loading Judicial Console...</div>}>
+    <Suspense fallback={<div className="p-8 text-center text-slate-500 text-xs">Loading Judicial Registry Console...</div>}>
       <CourtRegistryContent />
     </Suspense>
   );
