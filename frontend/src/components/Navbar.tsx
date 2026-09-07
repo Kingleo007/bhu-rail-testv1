@@ -9,10 +9,11 @@ export default function Navbar() {
 
   const links = [
     { href: "/", label: "DPI Explorer", icon: Layers },
-    { href: "/bank-simulator", label: "Land UPI (Bank)", icon: Landmark, badge: "Killer Demo 3" },
-    { href: "/court-registry", label: "Fraud Prevention", icon: ShieldCheck, badge: "Killer Demo 1" },
-    { href: "/surveyor-tools", label: "Subdivision", icon: Scissors, badge: "Killer Demo 2" },
+    { href: "/bank-simulator", label: "Land UPI (Bank)", icon: Landmark, badge: "Demo 3" },
+    { href: "/court-registry", label: "Fraud Prevention", icon: ShieldCheck, badge: "Demo 1" },
+    { href: "/surveyor-tools", label: "Subdivision", icon: Scissors, badge: "Demo 2" },
     { href: "/ledger", label: "Trust Ledger", icon: LinkIcon },
+    { href: "/sih-presentation.html", label: "SIH Deck (PDF)", icon: Database, badge: "Slides" },
   ];
 
   return (
